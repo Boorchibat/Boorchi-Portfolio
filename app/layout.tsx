@@ -5,7 +5,10 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { cn } from "@/lib/utils";
 
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +22,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Boorchi's Portfolio",
-  description: "This is boorchis portfolio app",
+  description: "Full stack developer portfolio",
 };
 
 export default function RootLayout({
@@ -28,13 +31,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-mono", jetbrainsMono.variable)}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header/>
-        {children}
-        <Footer/>
+    <html
+      lang="en"
+      className={cn(
+        geistSans.variable,
+        geistMono.variable,
+        jetbrainsMono.variable
+      )}
+    >
+      <body className="relative min-h-screen overflow-x-hidden bg-[#0a0f1c] text-white antialiased">
+      
+        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+          
+          <div className="absolute top-[-200px] left-[-150px] h-[500px] w-[500px] rounded-full bg-cyan-500/20 blur-3xl" />
+
+          <div className="absolute right-[-100px] top-[100px] h-[500px] w-[500px] rounded-full bg-blue-500/20 blur-3xl" />
+
+          <div className="absolute bottom-[-250px] left-[30%] h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl" />
+        </div>
+
+        <Header />
+
+        <main className="relative z-10">
+          {children}
+        </main>
+
+        <Footer />
       </body>
     </html>
   );

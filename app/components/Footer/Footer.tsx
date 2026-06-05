@@ -7,7 +7,7 @@ import { LinkedIn } from "./contacts/LinkedIn";
 
 export const Footer = () => {
   return (
-    <div className="w-full h-[150PX] bg-blue-950 text-white flex flex-col items-center justify-center gap-x-5">
+    <div className="w-full border-t border-gray-700 h-[150PX] text-white flex flex-col items-center justify-center gap-x-5">
       <div className="flex w-full items-center justify-evenly">
         <div>
           <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">Built with precision, skill and class. </h1>

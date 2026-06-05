@@ -5,7 +5,7 @@ import { FadingSeparator } from "@/components/ui/FadingSeperator";
 
 const page = () => {
   return (
-    <div className="bg-blue-950 flex flex-col justify-center items-center h-auto">
+    <div className=" flex flex-col justify-center items-center h-auto">
       <Top />
 
     <FadingSeparator className="w-full max-w-[80%] h-[2px] bg-gradient-to-r from-transparent via-gray-500 to-transparent my-6" />

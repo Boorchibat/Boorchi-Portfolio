@@ -51,7 +51,7 @@ export const Skills = () => {
       <h1 className="text-white text-[40px] font-bold">
         Technical skills I work with:
       </h1>
-      <div className="flex flex-wrap justify-center items-center gap-10 mt-[50px]">
+      <div className="flex flex-wrap p-3 justify-center items-center gap-10 mt-[50px]">
         {Skills.map((skill) => (
           <div
             key={skill.ID}
