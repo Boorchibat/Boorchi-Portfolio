@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export const Top = () => {
   return (
-    <div className="w-[80%] mb-[120px] md:mr-[150px] flex-col md:flex-row flex justify-center items-center gap-x-10 pt-[30px]">
+    <div className="w-full mb-[120px] md:ml-[135px] flex-col md:flex-row flex justify-center items-center gap-x-10 pt-[30px]">
       <div className="w-full md:w-[50%] flex flex-col">
         <Button className="w-[200px] rounded-2xl border-2 border-blue-500 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
           Available for hire
@@ -41,10 +42,8 @@ export const Top = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex w-[50%]">
-        <p>
-          Full-stack developer with experience in React, TypeScript, and Node.js.
-        </p>
+      <div className="hidden md:flex w-[50%] justify-center items-center">
+        <Image className="rounded-lg overflow-hidden" src="/me.jpeg" alt="Profile" width={500} height={500} />
       </div>
     </div>
   );
