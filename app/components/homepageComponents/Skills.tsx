@@ -48,7 +48,7 @@ export const Skills = () => {
   return (
     <div className="mt-[150px] mb-[200px] flex flex-col justify-center items-center">
       <h1 className="text-blue-500">TECH STACK</h1>
-      <h1 className="text-white text-[40px] font-bold">
+   <h1 className="text-white text-[40px] lg:text-[24px] font-bold text-center px-4">
         Technical skills I work with:
       </h1>
       <div className="flex flex-wrap p-3 justify-center items-center gap-10 mt-[50px]">

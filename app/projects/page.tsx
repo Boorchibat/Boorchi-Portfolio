@@ -35,7 +35,7 @@ const sampleProjects = [
     tags: ["Socket.io", "Express", "React", "Node.js"],
     Type: "Full stack",
   },
-   {
+  {
     title: "Real-Time Chat App",
     shortDescription: "Instant messaging with WebSockets",
     description:
@@ -48,49 +48,40 @@ const sampleProjects = [
   },
 ];
 
+const filterButtons = ["All", "Full stack", "Frontend", "HTML/CSS", "Javascript", "AI"];
+
 const page = () => {
   return (
-    <div className=" flex flex-col h-auto">
-      <div className="ml-[150px] mr-[150px]">
-        <div className="flex flex-col">
-          <h1 className="border-blue-500 mt-[20px] bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent text-[25px]">
-            Portfolio
-          </h1>
-          <h1 className="mt-[10px] text-[34px] text-white font-bold">
-            My Projects
-          </h1>
-          <h1 className="text-[20px] text-gray-400 w-[900px]">
-            A curated collection of my recent work,demonstrating my skills and
-            expertise in full-stack web development. Starting from my first
-            projects to my latest developments.
-          </h1>
+    <div className="flex flex-col h-auto mb-[50px]">
+      <div className="flex flex-col">
+        <h1 className="mt-[20px] bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent text-[25px]">
+          Portfolio
+        </h1>
+        <h1 className="mt-[10px] text-3xl md:text-[34px] text-white font-bold">
+          My Projects
+        </h1>
+        <h1 className="text-base md:text-[20px] text-gray-400 w-full max-w-[900px]">
+          A curated collection of my recent work, demonstrating my skills and
+          expertise in full-stack web development. Starting from my first
+          projects to my latest developments.
+        </h1>
 
-          <div className="flex gap-x-5 mt-[20px]">
-            <Button className="border-1 border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white hover:border-gradient-to-r from-blue-500 to-purple-500">
-              All
+        <div className="flex gap-x-3 mt-[20px] overflow-x-auto pb-2 scrollbar-none">
+          {filterButtons.map((label) => (
+            <Button
+              key={label}
+              className="border border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white shrink-0"
+            >
+              {label}
             </Button>
-            <Button className="border-1 border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white hover:border-gradient-to-r from-blue-500 to-purple-500">
-              Full stack
-            </Button>
-            <Button className="border-1 border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white hover:border-gradient-to-r from-blue-500 to-purple-500">
-              Frontend
-            </Button>
-            <Button className="border-1 border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white hover:border-gradient-to-r from-blue-500 to-purple-500">
-              HTML/CSS
-            </Button>
-            <Button className="border-1 border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white hover:border-gradient-to-r from-blue-500 to-purple-500">
-              Javascript
-            </Button>
-            <Button className="border-1 border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white hover:border-gradient-to-r from-blue-500 to-purple-500">
-              AI
-            </Button>
-          </div>
-          <div className="flex flex-wrap justify-between gap-10 mt-[50px]">
-            {sampleProjects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
-            ))}
-          </div>
+          ))}
         </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  justify-items-center gap-8 mt-[50px]">
+  {sampleProjects.map((project, index) => (
+    <ProjectCard key={index} project={project} />
+  ))}
+</div>
       </div>
     </div>
   );

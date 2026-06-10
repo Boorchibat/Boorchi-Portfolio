@@ -28,7 +28,7 @@ export const TimeLine = (props: DataType) => {
 
         <h3 className="text-xl font-semibold">{title}</h3>
 
-        <p className="text-gray-500 w-[700px]">
+       <p className="text-gray-500 w-full max-w-[700px]">
           {showFullDescription || !isLong
             ? description
             : shortDescription}

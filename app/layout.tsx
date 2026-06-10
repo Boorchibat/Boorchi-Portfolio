@@ -39,7 +39,7 @@ export default function RootLayout({
         jetbrainsMono.variable
       )}
     >
-      <body className="relative min-h-screen overflow-x-hidden bg-[#0a0f1c] text-white antialiased">
+    <body className="relative min-h-screen overflow-x-hidden bg-[#0a0f1c] text-white antialiased px-4 sm:px-8 md:px-16 lg:px-[150px]">
       
         <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
           
