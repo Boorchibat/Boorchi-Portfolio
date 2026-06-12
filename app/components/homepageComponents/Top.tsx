@@ -19,12 +19,17 @@ export const Top = () => {
           reactjs, typescript, HTML, CSS, Javascript.
         </p>
         <div className="flex flex-col gap-x-5 md:flex-row items-center mt-[80px]">
-          <Button className="bg-gradient-to-r mt-[10px] from-purple-500 to-blue-500 transform transition duration-300 hover:scale-110  text-white p-7 text-[20px] rounded-xl">
-            Check out my work
-          </Button>
-          <Button className="bg-gray-800 mt-[10px] text-white transform transition duration-300 hover:scale-110 p-7 text-[20px] rounded-xl">
-            Contact me
-          </Button>
+          <a href="/projects">
+
+            <Button className="bg-gradient-to-r mt-[10px] from-purple-500 to-blue-500 transform transition duration-300 hover:scale-110  text-white p-7 text-[20px] rounded-xl">
+              Check out my work
+            </Button>
+          </a>
+          <a href="/contact">
+            <Button className="bg-gray-800 mt-[10px] text-white transform transition duration-300 hover:scale-110 p-7 text-[20px] rounded-xl">
+              Contact me
+            </Button>
+          </a>
         </div>
         <div className="flex gap-x-5 mt-[100px]">
           <div className="flex flex-col">
@@ -43,7 +48,13 @@ export const Top = () => {
       </div>
 
       <div className="hidden md:flex w-[50%] justify-center items-center">
-        <Image className="rounded-lg overflow-hidden" src="/me.jpeg" alt="Profile" width={500} height={500} />
+        <Image
+          className="rounded-lg overflow-hidden"
+          src="/me.jpeg"
+          alt="Profile"
+          width={500}
+          height={500}
+        />
       </div>
     </div>
   );

@@ -48,7 +48,7 @@ export const Skills = () => {
   return (
     <div className="mt-[150px] mb-[200px] flex flex-col justify-center items-center">
       <h1 className="text-blue-500">TECH STACK</h1>
-   <h1 className="text-white text-[40px] lg:text-[24px] font-bold text-center px-4">
+      <h1 className="text-white text-[40px] lg:text-[24px] font-bold text-center px-4">
         Technical skills I work with:
       </h1>
       <div className="flex flex-wrap p-3 justify-center items-center gap-10 mt-[50px]">
@@ -56,7 +56,7 @@ export const Skills = () => {
           <div
             key={skill.ID}
             className="flex flex-col items-center text-center 
-  bg-gray-900/60 backdrop-blur-md
+  bg-gray-800/60 backdrop-blur-md
   border border-gray-700
   rounded-2xl p-6 w-[220px]
   transition duration-300 transform 
