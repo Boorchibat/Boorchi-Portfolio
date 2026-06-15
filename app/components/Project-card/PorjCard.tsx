@@ -1,4 +1,4 @@
-import { Project } from "@/index";
+
 import Image from "next/image";
 
 export const ProjectCard = ({ project }: { project: Project }) => {

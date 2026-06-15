@@ -6,4 +6,4 @@ import React from 'react'
   )
 }
 
-export default page;
+export default PageRevealEvent

@@ -1,4 +1,4 @@
-export type Project = {
+ type Project = {
   _id?: string; 
   title: string;
   shortDescription: string;
@@ -10,4 +10,15 @@ export type Project = {
   createdAt?: string;
   updatedAt?: string;
   Type: string;
+}
+ type SignInResponse = {
+  token: string;
+  user: User;
+}
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  role: string;
+  number: string;
 }
