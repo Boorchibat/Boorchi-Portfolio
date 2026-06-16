@@ -12,7 +12,7 @@ export const Header = () => {
         </h1>
       </div>
 
-      <div className="ml-4">
+      <div>
         <Buttons />
       </div>
     </header>

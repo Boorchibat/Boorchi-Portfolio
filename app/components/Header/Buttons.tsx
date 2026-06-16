@@ -12,11 +12,11 @@ export const Buttons = () => {
     { name: "Projects", href: "/projects" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
+    { name: "Log in", href: "/log-in" },
   ];
 
   return (
     <>
-     
       <nav className="max-sm:hidden flex items-center gap-5">
         {buttons.map((btn) => (
           <Button key={btn.name} asChild variant="ghost">
@@ -24,7 +24,6 @@ export const Buttons = () => {
           </Button>
         ))}
       </nav>
-
 
       <div className="hidden max-md:flex justify-end relative">
         <Button
@@ -36,7 +35,6 @@ export const Buttons = () => {
 
         {open && (
           <>
-           
             <div
               className="fixed inset-0 z-40"
               onClick={() => setOpen(false)}
