@@ -3,17 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/app/context/UserContext";
 
 export const Buttons = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useUser();
 
   const buttons = [
     { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "Log in", href: "/log-in" },
   ];
+
+  const authButton = user
+    ? { name: `Hi, ${user.username}`, href: "/" }
+    : { name: "Log in", href: "/log-in" };
 
   return (
     <>
@@ -23,8 +28,13 @@ export const Buttons = () => {
             <Link href={btn.href}>{btn.name}</Link>
           </Button>
         ))}
+
+        <Button asChild variant="ghost">
+          <Link href={authButton.href}>{authButton.name}</Link>
+        </Button>
       </nav>
 
+  
       <div className="hidden max-md:flex justify-end relative">
         <Button
           onClick={() => setOpen(!open)}
@@ -39,6 +49,7 @@ export const Buttons = () => {
               className="fixed inset-0 z-40"
               onClick={() => setOpen(false)}
             />
+
             <div className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-white/10 bg-[#111827] overflow-hidden z-50 shadow-xl">
               {buttons.map((btn) => (
                 <Link
@@ -50,6 +61,15 @@ export const Buttons = () => {
                   {btn.name}
                 </Link>
               ))}
+
+
+              <Link
+                href={authButton.href}
+                className="flex items-center w-full px-5 py-4 text-white text-base font-medium hover:bg-white/10 transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                {authButton.name}
+              </Link>
             </div>
           </>
         )}

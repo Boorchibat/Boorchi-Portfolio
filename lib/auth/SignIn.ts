@@ -16,6 +16,6 @@ export interface SignInResponse {
   user: User;
 }
 
-export const signIn = (payload: SignInPayload, token: string): Promise<SignInResponse> => {
-  return postProjects<SignInResponse, SignInPayload>("/auth/signin", payload, token);
+export const signIn = (payload: SignInPayload): Promise<SignInResponse> => {
+  return postProjects<SignInResponse, SignInPayload>("/auth/signin", payload);
 };

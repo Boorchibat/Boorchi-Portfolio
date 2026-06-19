@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { cn } from "@/lib/utils";
+import { UserProvider } from "./context/UserContext";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -36,27 +37,24 @@ export default function RootLayout({
       className={cn(
         geistSans.variable,
         geistMono.variable,
-        jetbrainsMono.variable
+        jetbrainsMono.variable,
       )}
     >
-    <body className="relative min-h-screen overflow-x-hidden bg-[#0a0f1c] text-white antialiased px-4 sm:px-8 md:px-16 lg:px-[150px]">
-      
+      <body className="relative min-h-screen overflow-x-hidden bg-[#0a0f1c] text-white antialiased px-4 sm:px-8 md:px-16 lg:px-[150px]">
         <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-          
           <div className="absolute top-[-200px] left-[-150px] h-[500px] w-[500px] rounded-full bg-cyan-500/20 blur-3xl" />
 
           <div className="absolute right-[-100px] top-[100px] h-[500px] w-[500px] rounded-full bg-blue-500/20 blur-3xl" />
 
           <div className="absolute bottom-[-250px] left-[30%] h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl" />
         </div>
+        <UserProvider>
+          <Header />
 
-        <Header />
+          <main className="relative z-10">{children}</main>
 
-        <main className="relative z-10">
-          {children}
-        </main>
-
-        <Footer />
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   );

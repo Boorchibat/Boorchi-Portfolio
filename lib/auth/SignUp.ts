@@ -22,5 +22,5 @@ export interface SignUpResponse {
 export const signUp = (
   payload: SignUpPayload
 ): Promise<SignUpResponse> => {
-  return postProjects<SignUpResponse, SignUpPayload>("/auth/signup", payload, "");
+  return postProjects<SignUpResponse, SignUpPayload>("/auth/signup", payload);
 };
