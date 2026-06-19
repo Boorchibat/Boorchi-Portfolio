@@ -1,4 +1,3 @@
-import { Project } from "@/index";
 import { postProjects } from "../getDatafromBackend";
 
 

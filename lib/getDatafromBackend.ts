@@ -7,7 +7,7 @@ export const getData = async <T>(
   return data;
 };
 
-export const postProjects = async <T, D>(
+export const postUser = async <T, D>(
   endpoint: string,
   payload: D,
 ): Promise<T> => {
@@ -18,6 +18,23 @@ export const postProjects = async <T, D>(
   });
   return data;
 };
+
+export const postProjects = async <T, D>(
+  endpoint: string,
+  payload: D,
+  token: string
+): Promise<T> => {
+  if (!token) throw new Error("Authentication token is required");
+
+  const { data } = await axiosInstance.post<T>(endpoint, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return data;
+};
+
 
 export const update = async <T, D>(
   endpoint: string,
