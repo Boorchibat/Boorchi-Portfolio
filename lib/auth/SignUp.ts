@@ -1,4 +1,4 @@
-import { postProjects } from "../getDatafromBackend";
+import { postUser } from "../getDatafromBackend";
 
 
 export interface SignUpPayload {
@@ -22,5 +22,5 @@ export interface SignUpResponse {
 export const signUp = (
   payload: SignUpPayload
 ): Promise<SignUpResponse> => {
-  return postProjects<SignUpResponse, SignUpPayload>("/auth/signup", payload);
+  return postUser<SignUpResponse, SignUpPayload>("/auth/signup", payload);
 };
