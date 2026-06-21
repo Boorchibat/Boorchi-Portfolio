@@ -1,11 +1,5 @@
 import { postUser } from "../getDatafromBackend";
 
-export interface User {
-  _id: string;
-  username: string;
-  email: string;
-}
-
 export interface SignInPayload {
   email: string;
   password: string;
@@ -16,6 +10,11 @@ export interface SignInResponse {
   user: User;
 }
 
-export const signIn = (payload: SignInPayload): Promise<SignInResponse> => {
-  return postUser<SignInResponse, SignInPayload>("/auth/signin", payload);
+export const signIn = (
+  payload: SignInPayload
+): Promise<SignInResponse> => {
+  return postUser<SignInResponse, SignInPayload>(
+    "/auth/signin",
+    payload
+  );
 };

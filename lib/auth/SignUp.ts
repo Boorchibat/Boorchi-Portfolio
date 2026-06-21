@@ -1,6 +1,5 @@
 import { postUser } from "../getDatafromBackend";
 
-
 export interface SignUpPayload {
   name: string;
   email: string;
@@ -12,15 +11,14 @@ export interface SignUpPayload {
 
 export interface SignUpResponse {
   token: string;
-  user: {
-    _id: string;
-    username: string;
-    email: string;
-  };
+  user: User;
 }
 
 export const signUp = (
   payload: SignUpPayload
 ): Promise<SignUpResponse> => {
-  return postUser<SignUpResponse, SignUpPayload>("/auth/signup", payload);
+  return postUser<SignUpResponse, SignUpPayload>(
+    "/auth/signup",
+    payload
+  );
 };
