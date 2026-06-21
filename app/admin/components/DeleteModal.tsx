@@ -23,6 +23,7 @@ export const DeleteModal = ({
     p: 4,
     borderRadius: 2,
     backgroundColor: "white",
+    text: "black",
   };
   
   return (
@@ -37,7 +38,7 @@ export const DeleteModal = ({
           <h1 className="text-lg font-bold text-black flex items-center justify-center">
             Are you sure you want to delete?
           </h1>
-          <h1>{error}</h1>
+          <h1 className="text-black">{error}</h1>
           <div className="flex gap-[50px]">
             <Button
               onClick={handleConfirm}

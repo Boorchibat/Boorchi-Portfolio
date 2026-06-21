@@ -9,6 +9,7 @@ export const Buttons = () => {
   const [open, setOpen] = useState(false);
   const { user } = useUser();
 
+
   const buttons = [
     { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
@@ -16,9 +17,11 @@ export const Buttons = () => {
     { name: "Contact", href: "/contact" },
   ];
 
-  const authButton = user
-    ? { name: `Hi, ${user.username}`, href: "/" }
-    : { name: "Log in", href: "/log-in" };
+ const authButton = user
+  ? user.role === "Admin"
+    ? { name: "Admin", href: "/admin" }
+    : { name: `Hi, ${user.username}`, href: "/" }
+  : { name: "Log in", href: "/log-in" };
 
   return (
     <>

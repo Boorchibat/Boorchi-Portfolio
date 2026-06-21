@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { getProjects } from "@/lib/projects/GetProjs";
 import { useEffect, useState } from "react";
 import { ProjectCard } from "../components/Project-card/PorjCard";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const filterButtons = [
   "All",
@@ -16,16 +17,24 @@ const filterButtons = [
 
 const Page = () => {
   const [data, setData] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const projects = await getProjects<Project[]>();
-      setData(projects);
+      try {
+        setLoading(true);
+
+        const projects = await getProjects<Project[]>();
+        setData(projects);
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProjects();
   }, []);
-
 
   return (
     <div className="flex flex-col h-auto mb-[50px]">
@@ -55,14 +64,19 @@ const Page = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-8 mt-[50px]">
-          {data.map((project) => (
-            <a key={project._id} href={`/details/${project._id}`}>
-              <ProjectCard key={project._id} project={project} />
-            </a>
-          
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center mt-[80px]">
+            <CircularProgress />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-8 mt-[50px]">
+            {data.map((project) => (
+              <a key={project._id} href={`/details/${project._id}`}>
+                <ProjectCard project={project} />
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

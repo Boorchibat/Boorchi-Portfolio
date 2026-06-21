@@ -4,20 +4,62 @@ import { Button } from "@/components/ui/button";
 import { uploadToCloudinary } from "@/lib/cloudinary/uploadtoCloundinary";
 import Image from "next/image";
 import { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import { useUser } from "@/app/context/UserContext";
+import { Post } from "@/lib/projects/CreateProj";
+import CircularProgress from "@mui/material/CircularProgress";
+
+type ProjectFormValues = {
+  title: string;
+  shortDescription: string;
+  description: string;
+  link: string;
+  sourceCode: string;
+  tags: string;
+  type: string;
+};
 
 const Page = () => {
-  const [title, setTitle] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
-  const [description, setDescription] = useState("");
-  const [link, setLink] = useState("");
-  const [sourceCode, setSourceCode] = useState("");
-  const [tags, setTags] = useState("");
-  const [type, setType] = useState("");
+  const { user, token } = useUser();
+
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (!token) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <h1 className="text-2xl text-red-500 font-bold">Access Denied</h1>
+      </div>
+    );
+  }
+  if (!user || user.role !== "Admin") {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <h1 className="text-2xl text-red-500 font-bold">Access Denied</h1>
+      </div>
+    );
+  }
+
+  const initialValues: ProjectFormValues = {
+    title: "",
+    shortDescription: "",
+    description: "",
+    link: "",
+    sourceCode: "",
+    tags: "",
+    type: "",
+  };
+
+  const handleSubmit = async (values: ProjectFormValues) => {
     try {
       setLoading(true);
 
@@ -28,29 +70,27 @@ const Page = () => {
 
       const uploadedImage = await uploadToCloudinary(image);
 
-      const projectData = {
-        title,
-        shortDescription,
-        description,
+      const payload = {
+        title: values.title,
+        shortDescription: values.shortDescription,
+        description: values.description,
         image: uploadedImage.secure_url,
-        link,
-        sourceCode,
-        tags: tags
+        link: values.link,
+        sourceCode: values.sourceCode,
+        tags: values.tags
           .split(",")
-          .map((tag) => tag.trim())
+          .map((t) => t.trim())
           .filter(Boolean),
-        Type: type,
+        Type: values.type,
       };
 
-      console.log(projectData);
+      console.log("Payload:", payload);
 
-      // Example API call:
-      // const token = localStorage.getItem("token");
-      // await postProjects("/project", projectData, token!);
+      await Post(payload, token);
 
       alert("Project uploaded successfully!");
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       alert("Failed to upload project");
     } finally {
       setLoading(false);
@@ -58,149 +98,114 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mt-[40px] mb-[40px] mx-auto p-6 md:p-8 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 shadow-xl mb-10">
+    <div className="w-full max-w-2xl mt-[40px] mb-[40px] mx-auto p-6 md:p-8 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 shadow-xl">
       <h1 className="text-3xl font-bold text-center text-white mb-8">
         Add Project
       </h1>
 
-      <div className="space-y-5">
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Project Title:
-          </label>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            type="text"
-            placeholder="Enter project title"
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white"
-          />
-        </div>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        {() => (
+          <Form className="space-y-5">
+            {/* Title */}
+            <Field
+              name="title"
+              placeholder="Enter project title"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            />
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Short Description:
-          </label>
-          <input
-            value={shortDescription}
-            onChange={(e) => setShortDescription(e.target.value)}
-            type="text"
-            placeholder="Brief summary of the project"
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white"
-          />
-        </div>
+            {/* Short description */}
+            <Field
+              name="shortDescription"
+              placeholder="Brief summary"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            />
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Full Description:
-          </label>
-          <textarea
-            rows={5}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Detailed project description"
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white resize-none"
-          />
-        </div>
+            {/* Description */}
+            <Field
+              as="textarea"
+              name="description"
+              rows={5}
+              placeholder="Detailed project description"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            />
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Project Image:
-          </label>
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-
-              if (file) {
-                setImage(file);
-                setPreview(URL.createObjectURL(file));
-              }
-            }}
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black file:mr-4 file:rounded-lg file:border-0 file:bg-purple-600 file:px-4 file:py-2 file:text-white file:cursor-pointer hover:file:bg-purple-700"
-          />
-
-          {preview && (
-            <div className="mt-4">
-              <Image
-                src={preview}
-                alt="Preview"
-                width={800}
-                height={400}
-                className="w-full max-h-[350px] object-cover rounded-xl"
+            {/* IMAGE UPLOAD (still manual, not Formik) */}
+            <div>
+        
+              <input
+                type="file"
+                accept="image/*"
+             
+                placeholder=""
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    setImage(file);
+                    setPreview(URL.createObjectURL(file));
+                  }
+                }}
+                className="w-full p-3 bg-white rounded-lg text-black"
               />
+
+              {preview && (
+                <Image
+                  src={preview}
+                  alt="Preview"
+                  width={800}
+                  height={400}
+                  className="mt-4 w-full rounded-xl object-cover"
+                />
+              )}
             </div>
-          )}
-        </div>
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Live Project URL:
-          </label>
-          <input
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-            type="url"
-            placeholder="https://your-project.com"
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white"
-          />
-        </div>
+            {/* Link */}
+            <Field
+              name="link"
+              type="url"
+              placeholder="Live project URL"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            />
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Source Code URL:
-          </label>
-          <input
-            value={sourceCode}
-            onChange={(e) => setSourceCode(e.target.value)}
-            type="url"
-            placeholder="https://github.com/username/repo"
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white"
-          />
-        </div>
+            {/* Source code */}
+            <Field
+              name="sourceCode"
+              type="url"
+              placeholder="GitHub URL"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            />
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Tags:
-          </label>
-          <input
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            type="text"
-            placeholder="React, Next.js, MongoDB, Tailwind"
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white"
-          />
-        </div>
+            {/* Tags */}
+            <Field
+              name="tags"
+              placeholder="React, Next.js, MongoDB"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            />
 
-        <div>
-          <label className="block text-white font-medium mb-2">
-            Project Type:
-          </label>
+            {/* Type */}
+            <Field
+              as="select"
+              name="type"
+              className="w-full p-3 rounded-lg bg-white text-black"
+            >
+              <option value="">Select type</option>
+              <option value="Full stack">Full Stack</option>
+              <option value="Front end">Front End</option>
+              <option value="HTML/CSS">HTML/CSS</option>
+              <option value="Javascript">Javascript</option>
+              <option value="AI">AI</option>
+            </Field>
 
-          <select
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            className="w-full p-3 rounded-lg border border-white/20 bg-white text-black outline-none focus:ring-2 focus:ring-white"
-          >
-            <option value="">Select a type</option>
-            <option value="Full stack">Full Stack</option>
-            <option value="Front end">Front End</option>
-            <option value="HTML/CSS">HTML/CSS</option>
-            <option value="Javascript">Javascript</option>
-            <option value="AI">AI</option>
-          </select>
-        </div>
-
-        <Button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="w-full mt-4 py-6 rounded-xl bg-black/20 hover:bg-black/30 transition-all duration-300 text-white font-semibold hover:scale-[1.02]"
-        >
-          {loading ? "Uploading..." : "Add Project"}
-        </Button>
-      </div>
+            {/* Submit */}
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full py-6 bg-black/20 text-white font-semibold"
+            >
+              {loading ? "Uploading..." : "Add Project"}
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

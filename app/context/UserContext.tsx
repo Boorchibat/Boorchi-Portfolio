@@ -9,6 +9,7 @@ export interface User {
   username: string;
   email: string;
   profileImage?: { url: string };
+  role: string;
 }
 
 interface UserContextType {
