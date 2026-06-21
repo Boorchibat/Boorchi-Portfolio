@@ -1,6 +1,6 @@
+import type { NextConfig } from "next";
 
-
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -8,11 +8,13 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
     ],
   },
 };
 
-module.exports = nextConfig;
-
 export default nextConfig;
-
