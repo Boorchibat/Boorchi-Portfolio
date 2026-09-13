@@ -1,4 +1,3 @@
-import React from "react";
 
 const skills = [
   { name: "Next.js", percent: 95, color: "bg-purple-500" },

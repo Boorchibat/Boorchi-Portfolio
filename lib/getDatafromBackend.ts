@@ -6,6 +6,25 @@ export const getData = async <T>(
   const { data } = await axiosInstance.get<T>(endpoint);
   return data;
 };
+export async function postEmail<T>(
+  endpoint: string,
+  data: unknown
+): Promise<T> {
+  const response = await fetch(`https://api.boorchi.com${endpoint}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Request failed");
+  }
+
+  return response.json();
+}
+
 
 export const postUser = async <T, D>(
   endpoint: string,

@@ -11,7 +11,6 @@ const Page = () => {
   const [data, setData] = useState<Project[]>([]);
   const { user, loading } = useUser();
 
-
   useEffect(() => {
     const fetchProjects = async () => {
       const projects = await getProjects<Project[]>();
@@ -21,10 +20,10 @@ const Page = () => {
     fetchProjects();
   }, []);
 
-    if(loading) {
+  if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
-       <CircularProgress />
+        <CircularProgress />
       </div>
     );
   }

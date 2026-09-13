@@ -44,9 +44,10 @@ export const UpdateModal = ({ open, handleClose, project }: Props) => {
     return null;
   }
 
+
   return (
     <>
-      {/* MAIN UPDATE MODAL */}
+
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <h1 className="text-3xl font-bold text-center mb-6 text-black">
@@ -93,7 +94,7 @@ export const UpdateModal = ({ open, handleClose, project }: Props) => {
 
                 handleClose();
 
-                // small delay for smooth UX
+      
                 setTimeout(() => {
                   setSuccessOpen(true);
                 }, 150);

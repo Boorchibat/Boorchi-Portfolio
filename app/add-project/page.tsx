@@ -129,7 +129,6 @@ const Page = () => {
               className="w-full p-3 rounded-lg bg-white text-black"
             />
 
-            {/* IMAGE UPLOAD (still manual, not Formik) */}
             <div>
         
               <input
@@ -158,7 +157,7 @@ const Page = () => {
               )}
             </div>
 
-            {/* Link */}
+    
             <Field
               name="link"
               type="url"

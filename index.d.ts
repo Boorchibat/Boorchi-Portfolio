@@ -11,10 +11,12 @@
   updatedAt?: string;
   Type: string;
 }
+
  type SignInResponse = {
   token: string;
   user: User;
 }
+
 type User = {
   _id: string;
   username: string;
