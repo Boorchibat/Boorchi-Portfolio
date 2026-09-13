@@ -27,7 +27,7 @@ export const Buttons = () => {
     <>
       <nav className="max-sm:hidden flex items-center gap-5">
         {buttons.map((btn) => (
-          <Button key={btn.name} asChild variant="ghost">
+          <Button key={btn.name} asChild variant="ghost"  className="hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300">
             <Link href={btn.href}>{btn.name}</Link>
           </Button>
         ))}
@@ -58,7 +58,7 @@ export const Buttons = () => {
                 <Link
                   key={btn.name}
                   href={btn.href}
-                  className="flex items-center w-full px-5 py-4 text-white text-base font-medium hover:bg-white/10 transition-colors border-b border-white/5 last:border-b-0"
+                  className="flex items-center w-full px-5 py-4 text-white text-base font-medium hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 transition-colors border-b border-white/5 last:border-b-0"
                   onClick={() => setOpen(false)}
                 >
                   {btn.name}

@@ -9,7 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 const filterButtons = [
   "All",
   "Full stack",
-  "Frontend",
+  "Front end",
   "HTML/CSS",
   "Javascript",
   "AI",
@@ -18,6 +18,7 @@ const filterButtons = [
 const Page = () => {
   const [data, setData] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -35,6 +36,12 @@ const Page = () => {
 
     fetchProjects();
   }, []);
+  console.log(data);
+
+  const filteredProjects =
+    selectedFilter === "All"
+      ? data
+      : data.filter((project) => project.Type === selectedFilter);
 
   return (
     <div className="flex flex-col h-auto mb-[50px]">
@@ -57,7 +64,12 @@ const Page = () => {
           {filterButtons.map((label) => (
             <Button
               key={label}
-              className="border border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white shrink-0"
+              onClick={() => setSelectedFilter(label)}
+              className={
+                selectedFilter === label
+                  ? "border border-transparent bg-gradient-to-r from-blue-500 to-purple-500 text-white shrink-0"
+                  : "border border-gray-500 bg-transparent text-gray-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white shrink-0"
+              }
             >
               {label}
             </Button>
@@ -70,7 +82,7 @@ const Page = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-8 mt-[50px]">
-            {data.map((project) => (
+            {filteredProjects.map((project) => (
               <a key={project._id} href={`/details/${project._id}`}>
                 <ProjectCard project={project} />
               </a>
